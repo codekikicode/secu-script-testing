@@ -2,10 +2,9 @@
   "name": "secu-script-testing",
   "private": true,
   "type": "module",
+  {
   "scripts": {
-    "test": "playwright test"
+    "test": "npx playwright test --reporter=html"
   },
-  "devDependencies": {
-    "@playwright/test": "^1.47.0"
-  }
+  "devDependencies": { "playwright": "^1.47.0" }
 }
