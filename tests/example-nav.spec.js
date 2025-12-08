@@ -6,8 +6,8 @@ test('Example.com navigation flow', async ({ page }) => {
   await expect(page).toHaveTitle(/Example Domain/);
 
   // Click "More information" link
-  await page.getByRole('link', { name: 'More information...' }).click();
-  await expect(page).toHaveURL('https://www.iana.org/domains/reserved');
+  await page.getByRole('link', { name: 'Learn more' }).click();
+  await expect(page).toHaveURL('https://www.iana.org/help/example-domains');
 
   // Go back to homepage
   await page.goBack();
