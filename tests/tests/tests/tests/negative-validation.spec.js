@@ -1,16 +1,14 @@
 import { test, expect } from '@playwright/test';
 
-test('Negative test - incorrect login shows no redirect', async ({ page }) => {
+test('Negative login shows no redirect', async ({ page }) => {
   await page.goto('https://www.w3schools.com/howto/howto_css_login_form.asp');
 
-  // Wrong credentials
-  await page.getByPlaceholder('Enter Username').fill('notAUser');
-  await page.getByPlaceholder('Enter Password').fill('wrongpass');
-  await page.getByRole('button', { name: 'Login' }).click();
+  // Open the modal
+  await page.locator('#myBtn').click();
 
-  // Expect to remain on the same URL (form validation fails)
+  await page.locator('#uname').fill('notAUser');
+  await page.locator('#psw').fill('wrongpass');
+  await page.locator("button.w3-button.w3-green").click();
+
   await expect(page).toHaveURL(/howto_css_login_form/);
-
-  // Check button still visible (meaning login didn’t redirect)
-  await expect(page.getByRole('button', { name: 'Login' })).toBeVisible();
 });

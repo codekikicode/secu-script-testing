@@ -1,16 +1,25 @@
 import { test, expect } from '@playwright/test';
 
 test('Form validation test', async ({ page }) => {
-  // Load the login form page
+  // Navigate
   await page.goto('https://www.w3schools.com/howto/howto_css_login_form.asp');
 
-  // Fill username and password fields
-  await page.getByPlaceholder('Enter Username').fill('wronguser');
-  await page.getByPlaceholder('Enter Password').fill('wrongpass');
+  // Open the modal login form
+  await page.locator('#myBtn').click();
 
-  // Click the Login button
-  await page.getByRole('button', { name: 'Login' }).click();
+  // Fill username + password inside modal
+  const username = page.locator('#uname');
+  const password = page.locator('#psw');
 
-  // Confirm that you are on the correct page (form validation failed/passed)
+  await expect(username).toBeVisible();
+  await expect(password).toBeVisible();
+
+  await username.fill('wronguser');
+  await password.fill('wrongpass');
+
+  // Click login inside modal
+  await page.locator("button.w3-button.w3-green").click();
+
+  // Validate: login does NOT redirect
   await expect(page).toHaveURL(/howto_css_login_form/);
 });

@@ -3,26 +3,23 @@ import { test, expect } from '@playwright/test';
 test('UI interaction test', async ({ page }) => {
   await page.goto('https://www.w3schools.com/howto/howto_css_login_form.asp');
 
-  // Hover over the login button (visual interaction)
-  await page.getByRole('button', { name: 'Login' }).hover();
-  await expect(page.getByRole('button', { name: 'Login' })).toBeVisible();
+  // Open modal
+  await page.locator('#myBtn').click();
 
-  // Click to open the modal login box
-  await page.getByRole('button', { name: 'Login' }).click();
+  const username = page.locator('#uname');
+  const password = page.locator('#psw');
 
-  // Fill fields with text
-  await page.getByPlaceholder('Enter Username').fill('blueUser');
-  await page.getByPlaceholder('Enter Password').fill('bluePass123');
+  // Interactions
+  await username.click();
+  await username.fill('interactionUser');
 
-  // Clear + retype to simulate user error then correction
-  await page.getByPlaceholder('Enter Username').clear();
-  await page.getByPlaceholder('Enter Username').fill('correctUser');
+  await password.click();
+  await password.fill('interactionPass');
 
-  // Toggle show/hide password if the demo supports it
-  // If the site lacks this, it's ignored — no crash.
-  const passwordInput = page.getByPlaceholder('Enter Password');
-  await expect(passwordInput).toBeEditable();
+  // Click Login
+  await page.locator("button.w3-button.w3-green").click();
 
-  // Final click
-  await page.getByRole('button', { name: 'Login' }).click();
+  // Expect modal still present (no redirect)
+  await expect(page.locator('#id01')).toBeVisible();
 });
+
