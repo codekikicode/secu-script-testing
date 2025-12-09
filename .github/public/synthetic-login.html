@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SecuScript Synthetic Login</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 0;
+      margin: 0;
+      background: #f3f3f3;
+    }
+
+    /* Navbar */
+    .navbar {
+      background: #111;
+      padding: 12px;
+      color: white;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    #navbar-login-btn {
+      background: #4CAF50;
+      border: none;
+      color: white;
+      padding: 10px 16px;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    #navbar-login-btn:hover {
+      background: #45a049;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      padding-top: 120px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background: rgba(0,0,0,0.4);
+    }
+
+    .modal-content {
+      background: white;
+      margin: auto;
+      padding: 20px;
+      border-radius: 6px;
+      width: 300px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    input[type=text], input[type=password] {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .login-btn {
+      width: 100%;
+      margin-top: 16px;
+      padding: 12px;
+      background: #2196F3;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .close {
+      float: right;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .msg {
+      margin-top: 16px;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <button id="navbar-login-btn">Login</button>
+  </div>
+
+  <!-- MODAL -->
+  <div id="id01" class="modal">
+    <div class="modal-content">
+      <span class="close" id="close-btn">&times;</span>
+
+      <h3>Login Form</h3>
+
+      <label>Username</label>
+      <input id="uname" type="text" placeholder="Enter Username" />
+
+      <label>Password</label>
+      <input id="psw" type="password" placeholder="Enter Password" />
+
+      <button id="submit-btn" class="login-btn">Submit</button>
+
+      <div id="login-msg" class="msg"></div>
+    </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById("id01");
+    const loginBtn = document.getElementById("navbar-login-btn");
+    const closeBtn = document.getElementById("close-btn");
+    const submitBtn = document.getElementById("submit-btn");
+    const msg = document.getElementById("login-msg");
+
+    loginBtn.onclick = () => {
+      msg.innerText = "";
+      modal.style.display = "block";
+    };
+
+    closeBtn.onclick = () => {
+      modal.style.display = "none";
+    };
+
+    submitBtn.onclick = () => {
+      const user = document.getElementById("uname").value.trim();
+      const pass = document.getElementById("psw").value.trim();
+
+      // Synthetic credentials for demonstrations
+      if (user === "admin" && pass === "password123") {
+        msg.style.color = "green";
+        msg.innerText = "Login success!";
+      } else {
+        msg.style.color = "red";
+        msg.innerText = "Incorrect credentials.";
+      }
+    };
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    };
+  </script>
+
+</body>
+</html>

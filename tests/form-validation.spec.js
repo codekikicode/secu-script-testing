@@ -1,25 +1,22 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
+import path from "path";
+import { fileURLToPath } from "url";
 
-test('Form validation test', async ({ page }) => {
-  // Navigate
-  await page.goto('https://www.w3schools.com/howto/howto_css_login_form.asp');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-  // Open the modal login form
-  await page.locator('#myBtn').click();
+const syntheticLogin = "file://" + path.join(__dirname, "..", "..", "public", "synthetic-login.html");
 
-  // Fill username + password inside modal
-  const username = page.locator('#uname');
-  const password = page.locator('#psw');
+test("Form validation test", async ({ page }) => {
+  await page.goto(syntheticLogin);
 
-  await expect(username).toBeVisible();
-  await expect(password).toBeVisible();
+  // Open modal with login button
+  await page.locator("#navbar-login-btn").click();
+  await expect(page.locator("#id01")).toBeVisible();
 
-  await username.fill('wronguser');
-  await password.fill('wrongpass');
+  await page.locator("#uname").fill("");
+  await page.locator("#psw").fill("");
+  await page.locator("#login-submit").click();
 
-  // Click login inside modal
-  await page.locator("button.w3-button.w3-green").click();
-
-  // Validate: login does NOT redirect
-  await expect(page).toHaveURL(/howto_css_login_form/);
+  await expect(page.locator("#login-error")).toBeVisible();
 });

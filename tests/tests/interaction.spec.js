@@ -1,25 +1,22 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
+import path from "path";
+import { fileURLToPath } from "url";
 
-test('UI interaction test', async ({ page }) => {
-  await page.goto('https://www.w3schools.com/howto/howto_css_login_form.asp');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-  // Open modal
-  await page.locator('#myBtn').click();
+const syntheticLogin = "file://" + path.join(__dirname, "..", "..", "public", "synthetic-login.html");
 
-  const username = page.locator('#uname');
-  const password = page.locator('#psw');
+test("UI interaction test", async ({ page }) => {
+  await page.goto(syntheticLogin);
 
-  // Interactions
-  await username.click();
-  await username.fill('interactionUser');
+  await page.locator("#navbar-login-btn").click();
+  await expect(page.locator("#id01")).toBeVisible();
 
-  await password.click();
-  await password.fill('interactionPass');
+  // Interaction checks
+  await page.locator("#uname").fill("interactionUser");
+  await page.locator("#psw").fill("interactionPass");
 
-  // Click Login
-  await page.locator("button.w3-button.w3-green").click();
-
-  // Expect modal still present (no redirect)
-  await expect(page.locator('#id01')).toBeVisible();
+  await expect(page.locator("#uname")).toHaveValue("interactionUser");
+  await expect(page.locator("#psw")).toHaveValue("interactionPass");
 });
-
