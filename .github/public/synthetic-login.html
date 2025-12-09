@@ -13,7 +13,6 @@
       background: #f3f3f3;
     }
 
-    /* Navbar */
     .navbar {
       background: #111;
       padding: 12px;
@@ -33,11 +32,6 @@
       font-size: 14px;
     }
 
-    #navbar-login-btn:hover {
-      background: #45a049;
-    }
-
-    /* Modal */
     .modal {
       display: none;
       position: fixed;
@@ -47,7 +41,6 @@
       top: 0;
       width: 100%;
       height: 100%;
-      overflow: auto;
       background: rgba(0,0,0,0.4);
     }
 
@@ -68,7 +61,7 @@
       border-radius: 4px;
     }
 
-    .login-btn {
+    #login-submit {
       width: 100%;
       margin-top: 16px;
       padding: 12px;
@@ -79,28 +72,30 @@
       border-radius: 4px;
     }
 
+    #login-success, #login-error {
+      margin-top: 16px;
+      font-weight: bold;
+      text-align: center;
+      display: none;
+    }
+
+    #login-success { color: green; }
+    #login-error { color: red; }
+
     .close {
       float: right;
       font-size: 20px;
       cursor: pointer;
-    }
-
-    .msg {
-      margin-top: 16px;
-      font-weight: bold;
-      text-align: center;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- NAVBAR -->
   <div class="navbar">
     <button id="navbar-login-btn">Login</button>
   </div>
 
-  <!-- MODAL -->
   <div id="id01" class="modal">
     <div class="modal-content">
       <span class="close" id="close-btn">&times;</span>
@@ -113,9 +108,10 @@
       <label>Password</label>
       <input id="psw" type="password" placeholder="Enter Password" />
 
-      <button id="submit-btn" class="login-btn">Submit</button>
+      <button id="login-submit">Login</button>
 
-      <div id="login-msg" class="msg"></div>
+      <div id="login-success">Login successful!</div>
+      <div id="login-error">Invalid credentials.</div>
     </div>
   </div>
 
@@ -123,11 +119,14 @@
     const modal = document.getElementById("id01");
     const loginBtn = document.getElementById("navbar-login-btn");
     const closeBtn = document.getElementById("close-btn");
-    const submitBtn = document.getElementById("submit-btn");
-    const msg = document.getElementById("login-msg");
+    const submitBtn = document.getElementById("login-submit");
+
+    const successMsg = document.getElementById("login-success");
+    const errorMsg = document.getElementById("login-error");
 
     loginBtn.onclick = () => {
-      msg.innerText = "";
+      successMsg.style.display = "none";
+      errorMsg.style.display = "none";
       modal.style.display = "block";
     };
 
@@ -139,18 +138,17 @@
       const user = document.getElementById("uname").value.trim();
       const pass = document.getElementById("psw").value.trim();
 
-      // Synthetic credentials for demonstrations
-      if (user === "admin" && pass === "password123") {
-        msg.style.color = "green";
-        msg.innerText = "Login success!";
+      successMsg.style.display = "none";
+      errorMsg.style.display = "none";
+
+      if (user === "correctuser" && pass === "correctpass") {
+        successMsg.style.display = "block";
       } else {
-        msg.style.color = "red";
-        msg.innerText = "Incorrect credentials.";
+        errorMsg.style.display = "block";
       }
     };
 
-    // Close modal when clicking outside
-    window.onclick = function(event) {
+    window.onclick = function (event) {
       if (event.target === modal) {
         modal.style.display = "none";
       }

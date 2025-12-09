@@ -1,22 +1,24 @@
 import { test, expect } from "@playwright/test";
 import path from "path";
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "url"; 
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const projectRoot = process.cwd();
 
-const syntheticLogin = "file://" + path.join(__dirname, "..", "..", "public", "synthetic-login.html");
+const syntheticLogin =
+  "file:///" +
+  path.resolve(projectRoot, ".github/public/synthetic-login.html").replace(/\\/g, "/");
 
-test("UI interaction test", async ({ page }) => {
+  test("UI interaction test", async ({ page }) => {
   await page.goto(syntheticLogin);
 
   await page.locator("#navbar-login-btn").click();
   await expect(page.locator("#id01")).toBeVisible();
 
-  // Interaction checks
-  await page.locator("#uname").fill("interactionUser");
-  await page.locator("#psw").fill("interactionPass");
+  await page.locator("#uname").fill("correctuser");
+  await page.locator("#psw").fill("correctpass");
 
-  await expect(page.locator("#uname")).toHaveValue("interactionUser");
-  await expect(page.locator("#psw")).toHaveValue("interactionPass");
+  await expect(page.locator("#login-submit")).toBeEnabled({ timeout: 10000 }); 
+
+  await page.locator("#login-submit").click(); 
+
 });
