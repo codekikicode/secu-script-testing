@@ -1,6 +1,16 @@
-MIT License
+Copyright (c) 2025 Kiyali Ross (SecuScript)
 
-Copyright (c) 2025 Kiyali Ross
+This project is dual-licensed under:
+
+1. The MIT License (open source)
+2. The SecuScript Commercial License (proprietary, paid usage)
+
+You may choose either license depending on your use case.
+
+---
+
+MIT License
+-----------
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,3 +29,26 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+---
+
+Commercial License
+------------------
+
+If you wish to use SecuScript (or any portion of its code) as part of a
+commercial, closed-source, hosted, enterprise, or revenue-generating product,
+you must obtain a commercial license from the author.
+
+To inquire about a commercial license, contact:
+kiyali.ross@outlook.com
+
+You may not use, modify, or distribute this software under the commercial
+license without explicit written permission from the copyright holder.
+
+---
+
+Summary
+-------
+
+- Personal, academic, and open-source use → MIT License
+- Business, SaaS, closed-source, resale, or enterprise use → Commercial License
